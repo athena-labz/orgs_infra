@@ -1,26 +1,25 @@
 version: '3.8'
 services:
   athena-orgs-api:
+    image: athena-orgs-api:latest-dev
     build:
-      context: ../orgs_backend
+      context: ./orgs_backend
       args:
         CURRENT_ENVIRONMENT: dev
         PORT: 8080
     env_file:
       - ./env/athena-orgs-api.dev.env
-    ports:
-      - "8080:8080"
   athena-orgs-proxy:
+    image: athena-orgs-proxy:latest-dev
     build:
       context: ./nginx
       dockerfile: Dockerfile.dev
     ports:
       - "80:80"
   athena-orgs-web:
+    image: athena-orgs-web:latest-dev
     build:
-      context: ../orgs_web
+      context: ./orgs_web
       dockerfile: Dockerfile.dev
     env_file:
       - ./env/athena-orgs-web.dev.env
-    ports:
-      - "3000:3000"

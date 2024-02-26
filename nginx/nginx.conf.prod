@@ -1,14 +1,22 @@
 http {
     include mime.types;
 
+    upstream backend {
+        server athena-orgs-api:8080;
+    }
+
     server {
-        listen       80;
+        listen 80;
         root /var/www/athenateams.com/html;
     
         server_name athenateams.com www.athenateams.com;
 
         location /api {
-            proxy_pass  http://localhost:8080;
+            return 302 /api/;
+        }
+
+        location /api/ {
+            proxy_pass  http://backend/;
         }
     }
 }

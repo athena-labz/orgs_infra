@@ -1,0 +1,6 @@
+[submodule "orgs_web"]
+	path = orgs_web
+	url = git@github.com:athena-labz/orgs_web.git
+[submodule "orgs_backend"]
+	path = orgs_backend
+	url = git@github.com:athena-labz/orgs_backend.git
