@@ -9,6 +9,8 @@ services:
         PORT: 8080
     env_file:
       - ./env/athena-orgs-api.prod.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   athena-orgs-proxy:
     image: athena-orgs-proxy:latest-prod
     build:
