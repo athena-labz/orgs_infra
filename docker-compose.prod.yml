@@ -17,8 +17,12 @@ services:
       context: .
       dockerfile: ./nginx/Dockerfile.prod
     volumes:
-      - "/etc/ssl/live/app.athenalabo.com:/etc/ssl/live/app.athenalabo.com"
+      - "/etc/letsencrypt/archive/app.athenalabo.com:/etc/letsencrypt/archive/app.athenalabo.com"
     env_file:
       - ./env/athena-orgs-web.prod.env
     ports:
       - "80:80"
+      - "443:443"
+
+volumes:
+  certbot-etc:
