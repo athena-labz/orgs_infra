@@ -16,6 +16,8 @@ services:
     build:
       context: .
       dockerfile: ./nginx/Dockerfile.prod
+    volumes:
+      - "/etc/ssl/live/app.athenalabo.com:/etc/ssl/live/app.athenalabo.com"
     env_file:
       - ./env/athena-orgs-web.prod.env
     ports:
