@@ -7,16 +7,51 @@ http {
 
     server {
         listen 80;
-        root /var/www/athenateams.com/html;
+        listen [::]:80;
+        root /var/www/app.athenalabo.com/html;
     
-        server_name athenateams.com www.athenateams.com;
+        server_name app.athenalabo.com;
+
+        location / {
+            root /var/www/app.athenalabo.com/html;
+            index index.html;
+            try_files $uri /index.html$is_args$args =404;
+        }
 
         location /api {
             return 302 /api/;
         }
 
         location /api/ {
+            proxy_set_header Host app.athenalabo.com;
             proxy_pass  http://backend/;
+        }
+    }
+
+    server {
+        listen 443 ssl;
+        listen [::]:443;
+
+        root /var/www/app.athenalabo.com/html;
+        
+        server_name app.athenalabo.com;
+
+        ssl_certificate /etc/letsencrypt/archive/app.athenalabo.com/fullchain1.pem;
+        ssl_certificate_key /etc/letsencrypt/archive/app.athenalabo.com/privkey1.pem;
+
+        location / {
+            root /var/www/app.athenalabo.com/html;
+            index index.html;
+            try_files $uri /index.html$is_args$args =404;
+        }
+
+        location /api {
+            return 302 /api/;
+        }
+
+        location /api/ {
+            proxy_set_header Host app.athenalabo.com;
+            proxy_pass http://backend/;
         }
     }
 }

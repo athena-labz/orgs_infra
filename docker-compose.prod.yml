@@ -9,12 +9,20 @@ services:
         PORT: 8080
     env_file:
       - ./env/athena-orgs-api.prod.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   athena-orgs-proxy:
     image: athena-orgs-proxy:latest-prod
     build:
       context: .
       dockerfile: ./nginx/Dockerfile.prod
+    volumes:
+      - "/etc/letsencrypt/archive/app.athenalabo.com:/etc/letsencrypt/archive/app.athenalabo.com"
     env_file:
       - ./env/athena-orgs-web.prod.env
     ports:
       - "80:80"
+      - "443:443"
+
+volumes:
+  certbot-etc:
