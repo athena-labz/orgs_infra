@@ -7,6 +7,8 @@ services:
       args:
         CURRENT_ENVIRONMENT: dev
         PORT: 8080
+    volumes:
+      - ./orgs_backend:/app
     env_file:
       - ./env/athena-orgs-api.dev.env
   athena-orgs-proxy:
@@ -21,5 +23,7 @@ services:
     build:
       context: ./orgs_web
       dockerfile: Dockerfile.dev
+    volumes:
+      - ./orgs_web:/app
     env_file:
       - ./env/athena-orgs-web.dev.env
